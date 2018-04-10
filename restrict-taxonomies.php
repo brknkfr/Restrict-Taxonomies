@@ -644,12 +644,12 @@ class RestrictTaxonomies{
 		$this->cat_list = array();
 		foreach ($lestax as $taxonomy) {
 			// For users, strip out the placeholder category, which is only used to make sure the checkboxes work
-			if ( is_array( $settings_user ) && array_key_exists( $taxonomy, $settings_user ) && array_key_exists( $user_login . '_user_cats', $settings_user[$taxonomy] ) )
+			if ( is_array( $settings_user ) && array_key_exists( $taxonomy, $settings_user ) )
 				$settings_user[$taxonomy][ $user_login . '_user_cats' ] = array_values( array_diff( $settings_user[$taxonomy][ $user_login . '_user_cats' ], $defaults ) );
 			if(!isset($this->cat_list[$taxonomy]))
 				$this->cat_list[$taxonomy] = '';
 			// Selected categories for User overwrites Roles selection
-			if ( is_array( $settings_user ) && array_key_exists( $taxonomy, $settings_user ) && array_key_exists( $user_login . '_user_cats', $settings_user[$taxonomy] ) ) {
+			if ( is_array( $settings_user ) && is_array($settings_user[$taxonomy]) &&!empty( $settings_user[$taxonomy][ $user_login . '_user_cats' ] ) ) {
 				// Build the category list
 				foreach ($settings_user[$taxonomy][ $user_login . '_user_cats' ] as $category) {
 					$term_id = get_term_by( 'id', $category, $taxonomy )->term_id;
