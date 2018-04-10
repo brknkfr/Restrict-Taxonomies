@@ -4,7 +4,7 @@ Plugin Name: Restrict Taxonomies
 Description: Based on Restrict Categories, restrict the taxonomies terms that users can view, add, and edit in the admin panel.
 Author: Sladix
 Author URI: https://twitter.com/sladix
-Version: 1.3.3
+Version: 1.3.3.1
 */
 
 /*
@@ -652,7 +652,7 @@ class RestrictTaxonomies{
 			if ( is_array( $settings_user ) && array_key_exists( $taxonomy, $settings_user ) && array_key_exists( $user_login . '_user_cats', $settings_user[$taxonomy] ) ) {
 				// Build the category list
 				foreach ($settings_user[$taxonomy][ $user_login . '_user_cats' ] as $category) {
-					$term_id = get_term_by( 'slug', $category, $taxonomy )->term_id;
+					$term_id = get_term_by( 'id', $category, $taxonomy )->term_id;
 
 					// If WPML is installed, return the translated ID
 					if ( function_exists( 'icl_object_id' ) )
@@ -673,7 +673,7 @@ class RestrictTaxonomies{
 
 						// Build the category list
 						foreach ($settings[$taxonomy][ $key . '_cats' ] as $category) {
-							$term_id = get_term_by( 'slug', $category, $taxonomy )->term_id;
+							$term_id = get_term_by( 'id', $category, $taxonomy )->term_id;
 
 							// If WPML is installed, return the translated ID
 							if ( function_exists( 'icl_object_id' ) )
@@ -740,7 +740,7 @@ class RestrictTaxonomies{
 					$larray = explode( ',', $this->cat_list[$taxonomy] );
 					$taxquery[] = array(
 						'taxonomy' => $taxonomy,
-						'field' => 'id',
+						'field' => 'term_id',
 						'terms' => $larray ,
 						'operator'=> 'IN'
 					);
@@ -770,8 +770,10 @@ class RestrictTaxonomies{
 		foreach($this->cat_list as $tax=>$list){
 			$str_cats .= $list.",";
 		}
-		$str = rtrim($str, ",");
-		$str_cats = rtrim($str_cats,",");
+
+		
+		$str = trim($str, ",");
+		$str_cats = trim($str_cats,",");
 
 		//If there is no posts in the allowed categories, don't display any
 		if(!empty($str_cats))
@@ -1101,12 +1103,11 @@ class RestrictTaxs_Walker_Category_Checklist extends Walker {
 			$taxonomy = 'category';
 
 		$output .= sprintf(
-			'<li id="%4$s-category-%1$d"><label class="selectit"><input value="%2$s" type="checkbox" name="%3$s[%4$s][]" %5$s %6$s /> %7$s</label>',
+			'<li id="%3$s-category-%1$d"><label class="selectit"><input value="%1$s" type="checkbox" name="%2$s[%3$s][]" %4$s %5$s /> %6$s</label>',
 			$category->term_id,
-			$category->slug,
 			$options_name,
 			$admin,
-			checked( in_array( $category->slug, $selected_cats ), true, false ),
+			checked( in_array( $category->term_id, $selected_cats ), true, false ),
 			( $disabled === true ? 'disabled="disabled"' : '' ),
 			esc_html( apply_filters( 'the_category', $category->name ) )
 		);
