@@ -1,10 +1,10 @@
 === Restrict Taxonomies ===
 Contributors: sladix, mmuro
 Tags: restrict, admin, administration, cms, categories, category, taxonomies, taxonomy
-Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=sladix%40gmail%2ecom&lc=FR&item_name=Sladix&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted
+Donate link: https://paypal.me/GuillienAntoine/
 Requires at least: 3.1
-Tested up to: 4.4.2
-Stable tag: 1.3.0
+Tested up to: 4.9
+Stable tag: 1.3.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -38,6 +38,15 @@ Yes, the page post type will always be handled, therefore, it doesn't appear in 
 1. Prevent the user from accessing the single view of a CPT that is in a disallowed taxonomy
 
 == Changelog ==
+
+= 1.3.3 =
+* Fixed a bug introduced in 1.3.2 (Thanks to @r-a-y)
+
+= 1.3.2 =
+* Fixed a bug that occurred when saving settings on a nth user page
+
+= 1.3.1 =
+* Refactored the user tab in order to handle large amount of users
 
 = 1.3.0 =
 * Fixed warnings on the plugin activation thanks to Gavin
