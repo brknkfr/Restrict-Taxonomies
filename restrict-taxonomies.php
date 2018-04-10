@@ -32,7 +32,7 @@ class RestrictTaxonomies{
 
 	private $user_query;
 
-	private $reseting = false;
+	private $resetting = false;
 
 	public function __construct(){
 		// Make sure we are in the admin before proceeding.
@@ -167,7 +167,7 @@ class RestrictTaxonomies{
 				'taxonomies'	=>	array('category')
 			);
 
-			$this->reseting = true;
+			$this->resetting = true;
 			// Reset Roles and Users options
 			update_option( 'RestrictTaxs_options', array() );
 			update_option( 'RestrictTaxs_user_options', array() );
